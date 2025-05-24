@@ -40,12 +40,12 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, CheckCircle2, XCircle, Award, Home, RotateCcw } from "lucide-react";
-import MCQEvaluationTest from '@/components/MCQEvaluationTest';
-import SubjectSelection from '@/components/SubjectSelection';
-import DomainSelection from '@/components/DomainSelection';
-import OnlineMCQTest from '@/components/OnlineMCQTest';
-import TestResults from '@/components/TestResults';
-import { MCQTestResult } from '@/components/OnlineMCQTest';
+import MCQEvaluationTest from '@/components/mcq/MCQEvaluationTest';
+import SubjectSelection from '@/components/forms/SubjectSelection';
+import DomainSelection from '@/components/forms/DomainSelection';
+import OnlineMCQTest from '@/components/mcq/OnlineMCQTest';
+import TestResults from '@/components/evaluation/TestResults';
+import { MCQTestResult } from '@/components/mcq/OnlineMCQTest';
 import { useUser } from '@/contexts/UserContext';
 import { useOnlineMode } from '@/contexts/OnlineModeContext';
 

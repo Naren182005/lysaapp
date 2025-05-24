@@ -1,18 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '@/components/Layout';
-import ScanCamera from '@/components/ScanCamera';
-import QuestionPaperScanner from '@/components/QuestionPaperScanner';
-import ManualAnswerEntry from '@/components/ManualAnswerEntry';
-import EvaluationForm from '@/components/EvaluationForm';
-import ResultsDisplay from '@/components/ResultsDisplay';
-import EvaluationDemo from '@/components/EvaluationDemo';
-import HandwritingAnalysis from '@/components/HandwritingAnalysis';
-import HandwritingStatistics from '@/components/HandwritingStatistics';
-import OnlineOfflineToggle from '@/components/OnlineOfflineToggle';
+import Layout from '@/components/layout/Layout';
+import ScanCamera from '@/components/camera/ScanCamera';
+import QuestionPaperScanner from '@/components/evaluation/QuestionPaperScanner';
+import ManualAnswerEntry from '@/components/evaluation/ManualAnswerEntry';
+import EvaluationForm from '@/components/evaluation/EvaluationForm';
+import ResultsDisplay from '@/components/evaluation/ResultsDisplay';
+import EvaluationDemo from '@/components/evaluation/EvaluationDemo';
+import HandwritingAnalysis from '@/components/analysis/HandwritingAnalysis';
+import HandwritingStatistics from '@/components/analysis/HandwritingStatistics';
+import OnlineOfflineToggle from '@/components/navigation/OnlineOfflineToggle';
 
-import MainNavigation from '@/components/MainNavigation';
+import MainNavigation from '@/components/navigation/MainNavigation';
 import { AppStep, EvaluationResult, HandwritingAnalysisResult } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -21,7 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { analyzeHandwriting } from '@/utils/evaluationService';
 import { handleAsyncError } from '@/utils/errorHandling';
 import { toast } from '@/components/ui/accessible-toast';
-import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import { useUser } from '@/contexts/UserContext';
 import { useOnlineMode } from '@/contexts/OnlineModeContext';
 

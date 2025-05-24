@@ -13,8 +13,8 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { toast } from '@/components/ui/sonner';
-import ClearHistoryDialog from '@/components/ClearHistoryDialog';
-import OfflineModeButton from '@/components/OfflineModeButton';
+import ClearHistoryDialog from '@/components/ui/ClearHistoryDialog';
+import OfflineModeButton from '@/components/navigation/OfflineModeButton';
 
 interface LayoutProps {
   children: React.ReactNode;

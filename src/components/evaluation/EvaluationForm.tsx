@@ -12,7 +12,7 @@ import { PaperclipIcon, UploadIcon, FileTextIcon, BookOpenIcon, ClipboardCheckIc
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { handleAsyncError, withErrorHandling } from '@/utils/errorHandling';
-import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import { formatMCQQuestion, convertParagraphToMCQ } from "@/utils/questionUtils";
 
 interface EvaluationFormProps {
