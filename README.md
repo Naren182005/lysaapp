@@ -1,73 +1,38 @@
-# Welcome to your Lovable project
+📋 Prerequisites Verification - Clear system requirements with version checks
+🚀 Step-by-Step Execution Instructions - Detailed setup and installation guide
+📊 Available Scripts Table - Complete list of all npm scripts with descriptions
+🔄 Multiple Startup Options - Different ways to run the application (development, production, separate services)
+🌐 Port Information - Clear specification of ports (3000 for frontend, 3001 for backend)
+🛠️ Comprehensive Troubleshooting - Solutions for common startup problems including:
+Port conflicts
+Dependency issues
+Environment variable problems
+API key issues
+Build errors
+CORS issues
+✅ Verification Steps - How to confirm the application is running correctly
+🌐 Access Points Table - Exact URLs to access different parts of the application
+🔄 Development Workflow - Hot reload, file watching, and testing procedures
+📱 Browser Compatibility - Supported browsers and versions
+🔐 Security Notes - Important security considerations
+📋 Quick Reference Section - Essential commands, URLs, and setup checklist
+Key Features Added:
+Clear command examples for all operations
+Troubleshooting solutions for common issues
+Port configuration details (frontend: 3000, backend: 3001)
+Environment setup guidance with actual file examples
+Multiple execution options (concurrent vs separate terminals)
+Production vs development mode instructions
+API endpoint testing procedures
+Browser access instructions with exact URLs
+Quick reference checklist for easy setup verification
+The enhanced README.md now provides everything a developer needs to:
 
-## Project info
-
-**URL**: https://lovable.dev/projects/094d2ecc-63d8-49a7-9c13-307a1792d4f5
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/094d2ecc-63d8-49a7-9c13-307a1792d4f5) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/094d2ecc-63d8-49a7-9c13-307a1792d4f5) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Clone the repository
+Set up the environment
+Install dependencies
+Configure API keys
+Run the application in various modes
+Troubleshoot common issues
+Verify everything is working correctly
+This makes it extremely easy for any developer to get the Grade Scan Scribe AI application running locally without confusion about the execution process! 🎉
