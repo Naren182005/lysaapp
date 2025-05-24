@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal React Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .app {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function App() {
+            const [count, setCount] = React.useState(0);
+            
+            return (
+                <div className="app">
+                    <div className="header">
+                        <h1>Minimal React Test</h1>
+                        <p>If you can see this, React is working correctly!</p>
+                    </div>
+                    
+                    <div>
+                        <p>Count: {count}</p>
+                        <button 
+                            className="button" 
+                            onClick={() => setCount(count + 1)}
+                        >
+                            Increment
+                        </button>
+                        <button 
+                            className="button" 
+                            onClick={() => setCount(0)}
+                        >
+                            Reset
+                        </button>
+                    </div>
+                    
+                    <div style={{ marginTop: '20px' }}>
+                        <p>This is a minimal React application to test if React is working correctly.</p>
+                        <p>If you can see this and the buttons work, then React is functioning properly.</p>
+                    </div>
+                </div>
+            );
+        }
+        
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

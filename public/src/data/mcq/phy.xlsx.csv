@@ -1,0 +1,31 @@
+question_id,question_text,option_a,option_b,option_c,option_d,correct_answer,difficulty,topic,subtopic,marks
+1,"Which of the following is the correct unit of Young's modulus?","N/m","N/m²","N·m","kg/m³","B","medium","Mechanics","Elasticity",1
+2,"A body is moving with uniform velocity. The net force acting on it is:","Directly proportional to velocity","Inversely proportional to velocity","Zero","Directly proportional to mass","C","easy","Mechanics","Newton's Laws",1
+3,"The dimensional formula for impulse is the same as that of:","Force","Energy","Momentum","Power","C","medium","Mechanics","Dimensions",1
+4,"Which of the following is a scalar quantity?","Displacement","Velocity","Acceleration","Work","D","easy","Mechanics","Vectors",1
+5,"The escape velocity from Earth's surface is approximately:","7.9 km/s","9.8 km/s","11.2 km/s","15.0 km/s","C","medium","Gravitation","Escape Velocity",1
+6,"The time period of a simple pendulum depends on:","Mass of the bob","Length of the pendulum","Both mass and length","Neither mass nor length","B","medium","Oscillations","Simple Pendulum",1
+7,"The principle of superposition is applicable to:","Only mechanical waves","Only electromagnetic waves","Both mechanical and electromagnetic waves","Neither mechanical nor electromagnetic waves","C","medium","Waves","Wave Properties",1
+8,"The Doppler effect is related to:","Change in frequency","Change in wavelength","Change in amplitude","Both A and B","D","medium","Waves","Doppler Effect",1
+9,"Which of the following is NOT a thermodynamic process?","Isothermal","Isobaric","Isochoric","Isometric","D","medium","Thermodynamics","Processes",1
+10,"The efficiency of a Carnot engine depends on:","The working substance","The temperature of the source","The temperature of both source and sink","None of these","C","hard","Thermodynamics","Carnot Cycle",1
+11,"Coulomb's law is applicable to:","Point charges only","Extended charges only","Both point and extended charges","Neither point nor extended charges","A","medium","Electrostatics","Coulomb's Law",1
+12,"The electric field inside a charged hollow conductor is:","Zero","Uniform","Non-uniform","Infinite","A","medium","Electrostatics","Conductors",1
+13,"Which of the following is a good conductor of electricity?","Glass","Rubber","Copper","Wood","C","easy","Current Electricity","Conductors",1
+14,"Ohm's law is valid for:","All conductors under all conditions","Only metallic conductors under all conditions","All conductors under certain conditions","Only metallic conductors under certain conditions","D","medium","Current Electricity","Ohm's Law",1
+15,"The magnetic field at the center of a circular current-carrying loop is:","Directly proportional to current","Inversely proportional to radius","Both A and B","Neither A nor B","C","hard","Magnetism","Magnetic Field",1
+16,"Electromagnetic induction is NOT used in:","Transformer","Generator","Electric motor","Resistor","D","medium","Electromagnetic Induction","Applications",1
+17,"The refractive index of a medium depends on:","Wavelength of light","Intensity of light","Amplitude of light","Frequency of light","A","medium","Optics","Refraction",1
+18,"Total internal reflection occurs when light travels from:","Rarer to denser medium","Denser to rarer medium","Same medium","None of these","B","medium","Optics","Total Internal Reflection",1
+19,"Which of the following radiations has the highest frequency?","Ultraviolet","Infrared","X-rays","Microwaves","C","medium","Modern Physics","Electromagnetic Spectrum",1
+20,"The mass defect in a nucleus is related to:","Binding energy","Kinetic energy","Potential energy","Thermal energy","A","hard","Modern Physics","Nuclear Physics",1
+21,"The photoelectric effect supports:","Wave nature of light","Particle nature of light","Both wave and particle nature of light","Neither wave nor particle nature of light","B","medium","Modern Physics","Photoelectric Effect",1
+22,"Which of the following particles has the least mass?","Proton","Neutron","Electron","Alpha particle","C","easy","Modern Physics","Particle Physics",1
+23,"The principle of a semiconductor diode is based on:","p-n junction","n-n junction","p-p junction","None of these","A","medium","Electronics","Semiconductor Devices",1
+24,"The logic gate that gives output 1 when all inputs are 1 is:","OR gate","AND gate","NOT gate","NOR gate","B","medium","Electronics","Logic Gates",1
+25,"The focal length of a convex lens is:","Always positive","Always negative","Can be positive or negative","Zero","A","medium","Optics","Lenses",1
+26,"The SI unit of magnetic flux is:","Tesla","Weber","Henry","Gauss","B","medium","Magnetism","Magnetic Flux",1
+27,"The principle of conservation of energy states that:","Energy can be created but not destroyed","Energy can be destroyed but not created","Energy can neither be created nor destroyed","Energy can both be created and destroyed","C","easy","Mechanics","Conservation Laws",1
+28,"The moment of inertia of a body depends on:","Mass only","Distribution of mass only","Both mass and distribution of mass","Neither mass nor distribution of mass","C","medium","Mechanics","Rotational Motion",1
+29,"Which of the following is an example of a longitudinal wave?","Light wave","Water wave","Sound wave","Radio wave","C","easy","Waves","Wave Types",1
+30,"The specific heat capacity of water is:","1 J/kg·K","4.2 J/kg·K","4.2 kJ/kg·K","1 kJ/kg·K","C","medium","Thermodynamics","Specific Heat",1

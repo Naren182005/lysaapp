@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Connectivity</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Connectivity</h1>
+    
+    <div>
+        <h2>Test Local Server</h2>
+        <p>Enter the URL of the server to test:</p>
+        <input type="text" id="serverUrl" value="http://localhost:3000/test" style="width: 300px;">
+        <button onclick="testServer()">Test Server</button>
+    </div>
+    
+    <div>
+        <h2>Test External API</h2>
+        <p>Test connectivity to an external API:</p>
+        <button onclick="testExternalApi()">Test External API</button>
+    </div>
+    
+    <div id="results">
+        <p>Results will appear here...</p>
+    </div>
+    
+    <script>
+        // Function to test the server
+        async function testServer() {
+            const resultsDiv = document.getElementById('results');
+            const serverUrl = document.getElementById('serverUrl').value;
+            
+            resultsDiv.innerHTML = `<p>Testing connection to ${serverUrl}...</p>`;
+            
+            try {
+                const response = await fetch(serverUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultsDiv.innerHTML = `
+                        <p style="color: green;">✅ Connection successful!</p>
+                        <p>Status: ${response.status}</p>
+                        <p>Response:</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <p style="color: red;">❌ Connection failed!</p>
+                        <p>Status: ${response.status}</p>
+                        <p>Status Text: ${response.statusText}</p>
+                    `;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <p style="color: red;">❌ Connection error!</p>
+                    <p>Error: ${error.message}</p>
+                    <p>This could be due to:</p>
+                    <ul>
+                        <li>The server is not running</li>
+                        <li>CORS is not enabled on the server</li>
+                        <li>The URL is incorrect</li>
+                        <li>Network connectivity issues</li>
+                    </ul>
+                `;
+            }
+        }
+        
+        // Function to test an external API
+        async function testExternalApi() {
+            const resultsDiv = document.getElementById('results');
+            const apiUrl = 'https://jsonplaceholder.typicode.com/todos/1';
+            
+            resultsDiv.innerHTML = `<p>Testing connection to external API (${apiUrl})...</p>`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultsDiv.innerHTML = `
+                        <p style="color: green;">✅ External API connection successful!</p>
+                        <p>Status: ${response.status}</p>
+                        <p>Response:</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <p style="color: red;">❌ External API connection failed!</p>
+                        <p>Status: ${response.status}</p>
+                        <p>Status Text: ${response.statusText}</p>
+                    `;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <p style="color: red;">❌ External API connection error!</p>
+                    <p>Error: ${error.message}</p>
+                    <p>This could be due to network connectivity issues.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

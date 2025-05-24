@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCR Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      color: #333;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .input-section {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    
+    .result-section {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+      min-height: 200px;
+    }
+    
+    .image-preview {
+      max-width: 100%;
+      max-height: 300px;
+      margin-top: 10px;
+    }
+    
+    .button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    .loading {
+      display: none;
+      margin-top: 20px;
+    }
+    
+    .segment-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .segment {
+      border: 1px solid #ddd;
+      padding: 5px;
+      max-width: 150px;
+    }
+    
+    .segment img {
+      max-width: 100%;
+    }
+    
+    canvas {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>OCR Test</h1>
+  
+  <div class="container">
+    <div class="input-section">
+      <h2>Input Image</h2>
+      <input type="file" id="imageInput" accept="image/*">
+      <div>
+        <input type="radio" id="questionPaper" name="documentType" value="question" checked>
+        <label for="questionPaper">Question Paper</label>
+        
+        <input type="radio" id="answerSheet" name="documentType" value="answer">
+        <label for="answerSheet">Answer Sheet</label>
+      </div>
+      <button id="processButton" class="button">Process Image</button>
+      <div id="imagePreviewContainer">
+        <img id="imagePreview" class="image-preview" style="display: none;">
+      </div>
+    </div>
+    
+    <div class="loading" id="loadingIndicator">
+      <p>Processing image... This may take a few moments.</p>
+      <progress></progress>
+    </div>
+    
+    <div class="result-section">
+      <h2>Image Segments</h2>
+      <div id="segmentsContainer" class="segment-container"></div>
+    </div>
+  </div>
+  
+  <canvas id="canvas"></canvas>
+  
+  <script>
+    // DOM elements
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const processButton = document.getElementById('processButton');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const segmentsContainer = document.getElementById('segmentsContainer');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Preview the selected image
+    imageInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // Process the image when the button is clicked
+    processButton.addEventListener('click', async () => {
+      const file = imageInput.files[0];
+      if (!file) {
+        alert('Please select an image first');
+        return;
+      }
+      
+      // Show loading indicator
+      loadingIndicator.style.display = 'block';
+      segmentsContainer.innerHTML = '';
+      
+      try {
+        // Read the image as data URL
+        const imageUrl = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result);
+          reader.readAsDataURL(file);
+        });
+        
+        // Get document type
+        const isQuestionPaper = document.getElementById('questionPaper').checked;
+        
+        // Load the image
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        
+        img.onload = () => {
+          // Set canvas size
+          canvas.width = img.width;
+          canvas.height = img.height;
+          
+          // Draw the image on the canvas
+          ctx.drawImage(img, 0, 0);
+          
+          // Segment the image
+          const segmentWidth = isQuestionPaper ? 1200 : 800;
+          const segmentHeight = isQuestionPaper ? 1200 : 800;
+          const overlapPercentage = 0.1;
+          
+          // Calculate overlap in pixels
+          const overlapX = Math.floor(segmentWidth * overlapPercentage);
+          const overlapY = Math.floor(segmentHeight * overlapPercentage);
+          
+          // Calculate number of segments needed in each dimension
+          const numSegmentsX = Math.ceil((img.width - overlapX) / (segmentWidth - overlapX));
+          const numSegmentsY = Math.ceil((img.height - overlapY) / (segmentHeight - overlapY));
+          
+          console.log(`Segmenting image (${img.width}x${img.height}) into ${numSegmentsX}x${numSegmentsY} segments`);
+          
+          // Create segments
+          const segmentCanvas = document.createElement('canvas');
+          const segmentCtx = segmentCanvas.getContext('2d');
+          
+          segmentCanvas.width = segmentWidth;
+          segmentCanvas.height = segmentHeight;
+          
+          // Create segments with overlap
+          for (let y = 0; y < numSegmentsY; y++) {
+            for (let x = 0; x < numSegmentsX; x++) {
+              // Calculate segment position with overlap
+              const segX = x * (segmentWidth - overlapX);
+              const segY = y * (segmentHeight - overlapY);
+              
+              // Clear canvas for new segment
+              segmentCtx.clearRect(0, 0, segmentCanvas.width, segmentCanvas.height);
+              
+              // Draw segment from original image
+              segmentCtx.drawImage(
+                img,
+                segX, segY, segmentWidth, segmentHeight,
+                0, 0, segmentWidth, segmentHeight
+              );
+              
+              // Convert to data URL
+              const segmentDataUrl = segmentCanvas.toDataURL('image/jpeg', 0.95);
+              
+              // Create segment element
+              const segmentElement = document.createElement('div');
+              segmentElement.className = 'segment';
+              
+              const segmentImage = document.createElement('img');
+              segmentImage.src = segmentDataUrl;
+              
+              const segmentInfo = document.createElement('div');
+              segmentInfo.textContent = `Segment ${y * numSegmentsX + x + 1}`;
+              
+              segmentElement.appendChild(segmentImage);
+              segmentElement.appendChild(segmentInfo);
+              segmentsContainer.appendChild(segmentElement);
+            }
+          }
+          
+          // Add special segments for headers and footers if it's a question paper
+          if (isQuestionPaper) {
+            // Add a segment for the top of the page (header)
+            segmentCtx.clearRect(0, 0, segmentCanvas.width, segmentCanvas.height);
+            const headerHeight = Math.min(300, img.height / 4);
+            segmentCanvas.height = headerHeight;
+            segmentCtx.drawImage(
+              img,
+              0, 0, img.width, headerHeight,
+              0, 0, segmentCanvas.width, headerHeight
+            );
+            
+            const headerSegmentDataUrl = segmentCanvas.toDataURL('image/jpeg', 0.95);
+            
+            const headerSegmentElement = document.createElement('div');
+            headerSegmentElement.className = 'segment';
+            
+            const headerSegmentImage = document.createElement('img');
+            headerSegmentImage.src = headerSegmentDataUrl;
+            
+            const headerSegmentInfo = document.createElement('div');
+            headerSegmentInfo.textContent = 'Header Segment';
+            
+            headerSegmentElement.appendChild(headerSegmentImage);
+            headerSegmentElement.appendChild(headerSegmentInfo);
+            segmentsContainer.appendChild(headerSegmentElement);
+            
+            // Add a segment for the bottom of the page (footer)
+            segmentCtx.clearRect(0, 0, segmentCanvas.width, segmentCanvas.height);
+            const footerY = Math.max(0, img.height - headerHeight);
+            segmentCanvas.height = headerHeight;
+            segmentCtx.drawImage(
+              img,
+              0, footerY, img.width, headerHeight,
+              0, 0, segmentCanvas.width, headerHeight
+            );
+            
+            const footerSegmentDataUrl = segmentCanvas.toDataURL('image/jpeg', 0.95);
+            
+            const footerSegmentElement = document.createElement('div');
+            footerSegmentElement.className = 'segment';
+            
+            const footerSegmentImage = document.createElement('img');
+            footerSegmentImage.src = footerSegmentDataUrl;
+            
+            const footerSegmentInfo = document.createElement('div');
+            footerSegmentInfo.textContent = 'Footer Segment';
+            
+            footerSegmentElement.appendChild(footerSegmentImage);
+            footerSegmentElement.appendChild(footerSegmentInfo);
+            segmentsContainer.appendChild(footerSegmentElement);
+          }
+          
+          // Hide loading indicator
+          loadingIndicator.style.display = 'none';
+        };
+        
+        img.onerror = () => {
+          console.error('Failed to load image');
+          loadingIndicator.style.display = 'none';
+          alert('Failed to load image');
+        };
+        
+        img.src = imageUrl;
+      } catch (error) {
+        console.error('Error processing image:', error);
+        loadingIndicator.style.display = 'none';
+        alert(`Error: ${error.message}`);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCR Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      color: #333;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .input-section {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    
+    .result-section {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+      min-height: 200px;
+    }
+    
+    .image-preview {
+      max-width: 100%;
+      max-height: 300px;
+      margin-top: 10px;
+    }
+    
+    .button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    .loading {
+      display: none;
+      margin-top: 20px;
+    }
+    
+    .segment-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .segment {
+      border: 1px solid #ddd;
+      padding: 5px;
+      max-width: 150px;
+    }
+    
+    .segment img {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>OCR Test</h1>
+  
+  <div class="container">
+    <div class="input-section">
+      <h2>Input Image</h2>
+      <input type="file" id="imageInput" accept="image/*">
+      <div>
+        <input type="radio" id="questionPaper" name="documentType" value="question" checked>
+        <label for="questionPaper">Question Paper</label>
+        
+        <input type="radio" id="answerSheet" name="documentType" value="answer">
+        <label for="answerSheet">Answer Sheet</label>
+      </div>
+      <button id="processButton" class="button">Process Image</button>
+      <div id="imagePreviewContainer">
+        <img id="imagePreview" class="image-preview" style="display: none;">
+      </div>
+    </div>
+    
+    <div class="loading" id="loadingIndicator">
+      <p>Processing image... This may take a few moments.</p>
+      <progress></progress>
+    </div>
+    
+    <div class="result-section">
+      <h2>OCR Result</h2>
+      <div id="resultText"></div>
+    </div>
+    
+    <div class="result-section">
+      <h2>Image Segments</h2>
+      <div id="segmentsContainer" class="segment-container"></div>
+    </div>
+  </div>
+  
+  <script type="module">
+    // Import the OCR test functions
+    import { testOCR } from './ocrTest.js';
+    import { segmentImage } from '../utils/imageUtils.js';
+    import { extractTextFromImage } from '../utils/evaluationService.js';
+    
+    // DOM elements
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const processButton = document.getElementById('processButton');
+    const resultText = document.getElementById('resultText');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const segmentsContainer = document.getElementById('segmentsContainer');
+    
+    // Preview the selected image
+    imageInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          imagePreview.src = e.target.result;
+          imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // Process the image when the button is clicked
+    processButton.addEventListener('click', async () => {
+      const file = imageInput.files[0];
+      if (!file) {
+        alert('Please select an image first');
+        return;
+      }
+      
+      // Show loading indicator
+      loadingIndicator.style.display = 'block';
+      resultText.innerHTML = '';
+      segmentsContainer.innerHTML = '';
+      
+      try {
+        // Read the image as data URL
+        const imageUrl = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result);
+          reader.readAsDataURL(file);
+        });
+        
+        // Get document type
+        const isQuestionPaper = document.getElementById('questionPaper').checked;
+        
+        // Process the image segments
+        const segments = await segmentImage(
+          imageUrl,
+          isQuestionPaper,
+          isQuestionPaper ? 1200 : 800,
+          isQuestionPaper ? 1200 : 800,
+          0.1
+        );
+        
+        // Display segments
+        segments.forEach((segment, index) => {
+          const segmentElement = document.createElement('div');
+          segmentElement.className = 'segment';
+          
+          const segmentImage = document.createElement('img');
+          segmentImage.src = segment.dataUrl;
+          
+          const segmentInfo = document.createElement('div');
+          segmentInfo.textContent = `Segment ${index + 1}`;
+          
+          segmentElement.appendChild(segmentImage);
+          segmentElement.appendChild(segmentInfo);
+          segmentsContainer.appendChild(segmentElement);
+        });
+        
+        // Extract text
+        const extractedText = await extractTextFromImage(imageUrl, isQuestionPaper);
+        
+        // Display result
+        resultText.textContent = extractedText;
+      } catch (error) {
+        console.error('Error processing image:', error);
+        resultText.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+      } finally {
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

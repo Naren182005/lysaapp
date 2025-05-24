@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Console</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .instructions {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .instructions ol {
+            margin-top: 10px;
+            padding-left: 25px;
+        }
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        .code {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug Console Instructions</h1>
+    
+    <div class="instructions">
+        <p>Please follow these steps to check for JavaScript errors in your browser:</p>
+        <ol>
+            <li>Open your application at <a href="http://localhost:5173" target="_blank">http://localhost:5173</a></li>
+            <li>Right-click anywhere on the blank page and select "Inspect" or press F12</li>
+            <li>Click on the "Console" tab in the developer tools</li>
+            <li>Look for any red error messages</li>
+            <li>Copy those error messages and share them</li>
+        </ol>
+    </div>
+    
+    <h2>Common Errors and Solutions</h2>
+    
+    <h3>1. Module not found errors</h3>
+    <div class="code">
+Error: Failed to load module script: Expected a JavaScript module script but the server responded with a MIME type of "text/html".
+    </div>
+    <p>Solution: This usually indicates a routing issue or server misconfiguration. Make sure your Vite server is running correctly.</p>
+    
+    <h3>2. React rendering errors</h3>
+    <div class="code">
+Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined.
+    </div>
+    <p>Solution: This usually means a component failed to import correctly or is undefined.</p>
+    
+    <h3>3. API connection errors</h3>
+    <div class="code">
+Failed to fetch: http://localhost:3001/api/connectivity
+    </div>
+    <p>Solution: Make sure your backend server is running and accessible.</p>
+</body>
+</html>
